@@ -3,8 +3,26 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	win.addFont("fonts/Inconsolata.otf",12);
+	win.setColorFont(128,0,0);
+	win.setPos(0,1);
+	win.addStr("_");
+	win.setPos(1,1);
+	win.addStr("_");
+	win.setPos(2,1);
+	win.addStr("_");
+	win.setPos(3,1);
+	win.addStr("_");
+	win.setPos(4,1);
+	win.addStr("_");
+	win.setPos(5,1);
+	win.addStr("_");
+	win.setColorFont(0,128,0);
 	win.setPos(0,0);
-	win.addStr("a");
+	win.addStr("_\n_\n_\n_\n_\n_");
+
+	ofTrueTypeFont test;
+	test.loadFont("fonts/Inconsolata.otf",12);
+	std::cout<<test.getLineHeight()<<std::endl;
 }
 
 //--------------------------------------------------------------
