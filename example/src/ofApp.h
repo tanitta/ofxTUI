@@ -6,7 +6,7 @@ class ofApp : public ofBaseApp{
 	private:
 		ofxTUIWindow win;
 	public:
-		ofApp():win(20,20){};
+		ofApp():win(40,40){};
 		virtual ~ofApp(){};
 		void setup();
 		void update();
