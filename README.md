@@ -1,7 +1,7 @@
 ofxTUI
 ======
 
-[![ScreenShot](https://github.com/tanitta/ofxTUI/blob/master/ofxaddons_thumbnail.png)](https://vimeo.com/59048639)
+![ScreenShot](https://github.com/tanitta/ofxTUI/blob/master/ofxaddons_thumbnail.png)
 
 Introduction
 ------------
