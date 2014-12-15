@@ -18,6 +18,8 @@ class ofxTUIBaseWindow{
 		ofColor colorBackground;
 		int alphaBackground;
 
+		bool bFill;
+
 	public:
 		ofxTUIBaseWindow(const int& h, const int& w, const int& py = 0, const int& px = 0):
 			subWindows(),
@@ -31,7 +33,8 @@ class ofxTUIBaseWindow{
 			colorFont(255,255,255),
 			alphaFont(255),
 			colorBackground(0,0,0),
-			alphaBackground(255)
+			alphaBackground(255),
+			bFill(false)
 		{};
 
 		virtual ~ofxTUIBaseWindow(){};
@@ -67,23 +70,67 @@ class ofxTUIBaseWindow{
 			baseFont.loadFont(fontName, size);
 		}
 
+		void setIsFill(const bool& b){
+			bFill = b;
+		}
+		bool IsFill()const{
+			return bFill;
+		}
+
 		void setPos(const int& y_, const int& x_){
 			if(0<=x_ && x_<width){x = x_;}
 			if(0<=y_ && y_<height){y = y_;}
 		};
+
 		void addStr(const std::string& str){
-			types[y][x].colorFont = colorFont;
-			types[y][x].colorBackground = colorBackground;
-			if(str.length() <= 1){
-			types[y][x].str = str;
-			}else{
-				for(int i = 0; i<(int)str.length(); i++){
-					types[y][x+i].str = str[i];
+			if((0<=x && x<width)&&(0<=y && y<height)){
+				types[y][x].colorFont = colorFont;
+				types[y][x].colorBackground = colorBackground;
+				if(str.length() <= 1){
+					types[y][x].str = str;
+				}else{
+					for(int i = 0; i<(int)str.length()&&x+i<width; i++){
+						types[y][x+i].colorFont = colorFont;
+						types[y][x+i].colorBackground = colorBackground;
+						types[y][x+i].str = str[i];
+					}
 				}
 			}
 		};
 
-		void addAllBackground(){
+		void addStrRect(const std::string& str, const int& py, const int& px, const int& h, const int& w){
+			if(bFill){
+				for(int i = 0; i<h; i++){
+					for(int j = 0; j<w; j++){
+						setPos(i+py,j+px);
+						addStr(str);
+					}
+				}
+			}else{
+				if(h == 1){
+
+				}else if(w == 1){
+
+				}else{
+					for(int i = 0; i<h; i++){
+						if(i == 0||i==h-1){
+							for(int j = 0; j<w; j++){
+								setPos(i+py,j+px);
+								addStr(str);
+							}
+						}else{
+							setPos(i+py,px);
+							addStr(str);
+							setPos(i+py,px+w-1);
+							addStr(str);
+						}
+					}
+				}
+
+			}
+		};
+
+		void fillAllBackground(){
 			for (auto&& i : types) {
 				for (auto&& j : i) {
 					j.colorBackground = colorBackground;

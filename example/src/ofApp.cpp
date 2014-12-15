@@ -5,7 +5,7 @@ void ofApp::setup(){
 	win.addFont("fonts/Inconsolata.otf",10);
 
 	win.setColorBackground(32,32,32);
-	win.addAllBackground();
+	win.fillAllBackground();
 
 	win.setColorBackground(64,64,64);
 	for (int i = 0; i < 40; i++) {
@@ -35,13 +35,15 @@ void ofApp::setup(){
 	win.setColorFont(255,255,255);
 	win.setPos(1,3);
 	win.addStr("#include <ofMain.h>");
+	win.setIsFill(true);
+	win.addStrRect("*",2,3,3,3);
 
 
 	ofxTUIWindow win2(9,30);
 	win2.addFont("fonts/Inconsolata.otf",10);
 
 	win2.setColorBackground(32,32,32);
-	win2.addAllBackground();
+	win2.fillAllBackground();
 
 	win2.setColorBackground(64,64,64);
 	for (int i = 0; i < 30; i++) {
