@@ -39,6 +39,6 @@ class ofxTUIFont : public ofTrueTypeFont{
 		}
 
 		int getTextBoxHeight(){
-			return int(getLineHeight()+0.5);
+			return int((float)getLineHeight()+0.5);
 		}
 };

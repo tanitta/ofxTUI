@@ -4,13 +4,15 @@
 #include <ofxTUIFont.h>
 class ofxTUIBaseWindow{
 	protected:
-		std::vector<ofxTUIBaseWindow> subWindows;
+		std::vector<ofxTUIBaseWindow*> subWindow_ptrs;
 		std::map<std::string, ofxTUIFont> fonts;
 		ofxTUIFont baseFont;
 		std::vector<std::vector<ofxTUIType>> types;
 
 		int x;
 		int y;
+		int xCaret;
+		int yCaret;
 		int height;
 		int width;
 		ofColor colorFont;
@@ -22,12 +24,14 @@ class ofxTUIBaseWindow{
 
 	public:
 		ofxTUIBaseWindow(const int& h, const int& w, const int& py = 0, const int& px = 0):
-			subWindows(),
+			subWindow_ptrs(),
 			fonts(),
 			baseFont(),
 			types(h, std::vector<ofxTUIType>(w)),
 			x(px),
 			y(py),
+			xCaret(0),
+			yCaret(0),
 			height(h),
 			width(w),
 			colorFont(255,255,255),
@@ -50,12 +54,12 @@ class ofxTUIBaseWindow{
 		virtual void changedWindowSize(){};
 
 		void addSubWindow(ofxTUIBaseWindow& window){
-			subWindows.push_back(window);
+			subWindow_ptrs.push_back(&window);
 		};
 		void addSubWindow(ofxTUIBaseWindow& window,const int& y,const int& x){
 			window.x = x;
 			window.y = y;
-			subWindows.push_back(window);
+			subWindow_ptrs.push_back(&window);
 		};
 
 		void addFont(const std::string& fontName, const int& size){
@@ -78,21 +82,21 @@ class ofxTUIBaseWindow{
 		}
 
 		void setPos(const int& y_, const int& x_){
-			if(0<=x_ && x_<width){x = x_;}
-			if(0<=y_ && y_<height){y = y_;}
+			if(0<=x_ && x_<width){xCaret = x_;}
+			if(0<=y_ && y_<height){yCaret = y_;}
 		};
 
 		void addStr(const std::string& str){
-			if((0<=x && x<width)&&(0<=y && y<height)){
-				types[y][x].colorFont = colorFont;
-				types[y][x].colorBackground = colorBackground;
+			if((0<=xCaret && xCaret<width)&&(0<=yCaret && yCaret<height)){
+				types[yCaret][xCaret].colorFont = colorFont;
+				types[yCaret][xCaret].colorBackground = colorBackground;
 				if(str.length() <= 1){
-					types[y][x].str = str;
+					types[yCaret][xCaret].str = str;
 				}else{
 					for(int i = 0; i<(int)str.length()&&x+i<width; i++){
-						types[y][x+i].colorFont = colorFont;
-						types[y][x+i].colorBackground = colorBackground;
-						types[y][x+i].str = str[i];
+						types[yCaret][xCaret+i].colorFont = colorFont;
+						types[yCaret][xCaret+i].colorBackground = colorBackground;
+						types[yCaret][xCaret+i].str = str[i];
 					}
 				}
 			}
@@ -108,8 +112,15 @@ class ofxTUIBaseWindow{
 				}
 			}else{
 				if(h == 1){
-
+					for(int i = 0; i<w; i++){
+						setPos(py, i+px);
+						addStr(str);
+					}
 				}else if(w == 1){
+					for(int i = 0; i<h; i++){
+						setPos(i+py, px);
+						addStr(str);
+					}
 
 				}else{
 					for(int i = 0; i<h; i++){
@@ -162,12 +173,36 @@ class ofxTUIBaseWindow{
 			colorBackground = ofColor(r, g, b);
 		};
 
+
 		void clear(){};
 
 		virtual void update(){};
 
+		virtual void mouseMoved(const int& px, const int& py){};
+
+		void mouseMovedManager(const int& px, const int& py){
+			int xType = px/baseFont.getTextBoxWidth();
+			int yType = py/baseFont.getTextBoxHeight();
+			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+				mouseMoved(xType,yType);
+			}
+			// subWindows
+			for (auto&& i : subWindow_ptrs) {
+
+				int xSub = (px - i->x * baseFont.getTextBoxWidth());
+				int ySub = (py - i->y * baseFont.getTextBoxHeight());
+				i->mouseMovedManager(xSub, ySub);
+			}
+
+		}
+
+
 		void draw(){
 			update();
+			for (auto&& i : subWindow_ptrs) {
+				i->update();
+			}
+
 			int iy = 0;
 			for (auto&& i : types) {
 				int ix = 0;
@@ -188,10 +223,10 @@ class ofxTUIBaseWindow{
 				iy++;
 			}
 			// subWindowsの描画
-			for (auto&& i : subWindows) {
+			for (auto&& i : subWindow_ptrs) {
 				ofPushMatrix();
-				ofTranslate(i.x * i.baseFont.getTextBoxWidth(),i.y * i.baseFont.getTextBoxHeight());
-				i.draw();
+				ofTranslate(i->x * i->baseFont.getTextBoxWidth(),i->y * i->baseFont.getTextBoxHeight());
+				i->draw();
 				ofPopMatrix();
 			}
 		};
