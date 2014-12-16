@@ -9,12 +9,10 @@ class ofxTUIBaseWindow{
 		ofxTUIFont baseFont;
 		std::vector<std::vector<ofxTUIType>> types;
 
-		int x;
-		int y;
+
 		int xCaret;
 		int yCaret;
-		int height;
-		int width;
+
 		ofColor colorFont;
 		int alphaFont;
 		ofColor colorBackground;
@@ -23,6 +21,11 @@ class ofxTUIBaseWindow{
 		bool bFill;
 
 	public:
+		int x;
+		int y;
+		int height;
+		int width;
+
 		ofxTUIBaseWindow(const int& h, const int& w, const int& py = 0, const int& px = 0):
 			subWindow_ptrs(),
 			fonts(),
@@ -177,13 +180,30 @@ class ofxTUIBaseWindow{
 		void clear(){};
 
 		virtual void update(){};
+		virtual void draw(){};
 
+		virtual void keyPressed(const int& key){};
+		virtual void keyReleased(const int& key){};
 		virtual void mouseMoved(const int& px, const int& py){};
 		virtual void mouseDragged(const int& px, const int& py, const int& button){};
 		virtual void mousePressed(const int& px, const int& py, const int& button){};
 		virtual void mouseReleased(const int& px, const int& py, const int& button){};
 
-		void mouseMovedManager(const int& px, const int& py){
+		void callKeyPressed(const int& key){
+			keyPressed(key);
+			for (auto&& i : subWindow_ptrs) {
+				i->callKeyPressed(key);
+			}
+		};
+
+		void callKeyReleased(const int& key){
+			keyReleased(key);
+			for (auto&& i : subWindow_ptrs) {
+				i->callKeyReleased(key);
+			}
+		};
+
+		void callMouseMoved(const int& px, const int& py){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
 			if(0<=xType&&xType<width&&0<=yType&&yType<height){
@@ -194,12 +214,12 @@ class ofxTUIBaseWindow{
 
 				int xSub = (px - i->x * baseFont.getTextBoxWidth());
 				int ySub = (py - i->y * baseFont.getTextBoxHeight());
-				i->mouseMovedManager(xSub, ySub);
+				i->callMouseMoved(xSub, ySub);
 			}
 
 		}
 
-		void mouseDraggedManager(const int& px, const int& py, const int& button){
+		void callMouseDragged(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
 			if(0<=xType&&xType<width&&0<=yType&&yType<height){
@@ -210,12 +230,12 @@ class ofxTUIBaseWindow{
 
 				int xSub = (px - i->x * baseFont.getTextBoxWidth());
 				int ySub = (py - i->y * baseFont.getTextBoxHeight());
-				i->mouseDraggedManager(xSub, ySub, button);
+				i->callMouseDragged(xSub, ySub, button);
 			}
 
 		}
 
-		void mousePressedManager(const int& px, const int& py, const int& button){
+		void callMousePressed(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
 			if(0<=xType&&xType<width&&0<=yType&&yType<height){
@@ -226,12 +246,12 @@ class ofxTUIBaseWindow{
 
 				int xSub = (px - i->x * baseFont.getTextBoxWidth());
 				int ySub = (py - i->y * baseFont.getTextBoxHeight());
-				i->mousePressedManager(xSub, ySub, button);
+				i->callMousePressed(xSub, ySub, button);
 			}
 
 		}
 
-		void mouseReleasedManager(const int& px, const int& py, const int& button){
+		void callMouseReleased(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
 			if(0<=xType&&xType<width&&0<=yType&&yType<height){
@@ -242,17 +262,20 @@ class ofxTUIBaseWindow{
 
 				int xSub = (px - i->x * baseFont.getTextBoxWidth());
 				int ySub = (py - i->y * baseFont.getTextBoxHeight());
-				i->mouseReleasedManager(xSub, ySub, button);
+				i->callMouseReleased(xSub, ySub, button);
 			}
 
 		}
 
-		void draw(){
+		void callDraw(){
+			//update
 			update();
 			for (auto&& i : subWindow_ptrs) {
 				i->update();
 			}
 
+			//draw
+			draw();
 			int iy = 0;
 			for (auto&& i : types) {
 				int ix = 0;
@@ -275,8 +298,8 @@ class ofxTUIBaseWindow{
 			// subWindowsの描画
 			for (auto&& i : subWindow_ptrs) {
 				ofPushMatrix();
-				ofTranslate(i->x * i->baseFont.getTextBoxWidth(),i->y * i->baseFont.getTextBoxHeight());
-				i->draw();
+				ofTranslate(i->x * baseFont.getTextBoxWidth(),i->y * baseFont.getTextBoxHeight());
+				i->callDraw();
 				ofPopMatrix();
 			}
 		};

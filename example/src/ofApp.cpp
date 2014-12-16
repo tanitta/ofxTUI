@@ -49,38 +49,38 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	win.draw();
+	win.callDraw();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-
+	win.callKeyPressed(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	win.callKeyReleased(key);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseMoved(int x, int y ){
-	win.mouseMovedManager(x,y);
+	win.callMouseMoved(x,y);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-	win.mouseDraggedManager(x,y,button);
+	win.callMouseDragged(x,y,button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-	win.mousePressedManager(x,y,button);
+	win.callMousePressed(x,y,button);
 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-	win.mouseReleasedManager(x,y,button);
+	win.callMouseReleased(x,y,button);
 }
 
 //--------------------------------------------------------------
