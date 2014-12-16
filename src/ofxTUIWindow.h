@@ -9,9 +9,8 @@ class ofxTUIWindow : public ofxTUIBaseWindow{
 		virtual ~ofxTUIWindow(){};
 		virtual void update(){};
 		virtual void changedWindowSize(){};
-		virtual void mouseMoved(const int& px, const int& py){
-			// std::cout<<"mouseMoved"<<"x:"<<px<<" y:"<<py<<std::endl;
-			// setPos(py,px);
-			// addStr("a");
-		};
+		virtual void mouseMoved(const int& px, const int& py){};
+		virtual void mouseDragged(const int& px, const int& py, const int& button){};
+		virtual void mousePressed(const int& px, const int& py, const int& button){};
+		virtual void mouseReleased(const int& px, const int& py, const int& button){};
 };

@@ -69,16 +69,18 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
+	win.mouseDraggedManager(x,y,button);
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+	win.mousePressedManager(x,y,button);
 
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
-
+	win.mouseReleasedManager(x,y,button);
 }
 
 //--------------------------------------------------------------

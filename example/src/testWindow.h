@@ -7,7 +7,13 @@ class testWindow : public ofxTUIBaseWindow{
 		virtual void update(){};
 		virtual void changedWindowSize(){};
 		virtual void mouseMoved(const int& px, const int& py){
+			// setPos(py,px);
+			// addStr("a");
+		};
+		virtual void mouseDragged(const int& px, const int& py, const int& button){
 			setPos(py,px);
 			addStr("a");
 		};
+		virtual void mousePressed(const int& px, const int& py, const int& button){};
+		virtual void mouseReleased(const int& px, const int& py, const int& button){};
 };

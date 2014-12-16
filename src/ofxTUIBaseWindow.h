@@ -179,6 +179,9 @@ class ofxTUIBaseWindow{
 		virtual void update(){};
 
 		virtual void mouseMoved(const int& px, const int& py){};
+		virtual void mouseDragged(const int& px, const int& py, const int& button){};
+		virtual void mousePressed(const int& px, const int& py, const int& button){};
+		virtual void mouseReleased(const int& px, const int& py, const int& button){};
 
 		void mouseMovedManager(const int& px, const int& py){
 			int xType = px/baseFont.getTextBoxWidth();
@@ -196,6 +199,53 @@ class ofxTUIBaseWindow{
 
 		}
 
+		void mouseDraggedManager(const int& px, const int& py, const int& button){
+			int xType = px/baseFont.getTextBoxWidth();
+			int yType = py/baseFont.getTextBoxHeight();
+			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+				mouseDragged(xType, yType, button);
+			}
+			// subWindows
+			for (auto&& i : subWindow_ptrs) {
+
+				int xSub = (px - i->x * baseFont.getTextBoxWidth());
+				int ySub = (py - i->y * baseFont.getTextBoxHeight());
+				i->mouseDraggedManager(xSub, ySub, button);
+			}
+
+		}
+
+		void mousePressedManager(const int& px, const int& py, const int& button){
+			int xType = px/baseFont.getTextBoxWidth();
+			int yType = py/baseFont.getTextBoxHeight();
+			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+				mousePressed(xType, yType, button);
+			}
+			// subWindows
+			for (auto&& i : subWindow_ptrs) {
+
+				int xSub = (px - i->x * baseFont.getTextBoxWidth());
+				int ySub = (py - i->y * baseFont.getTextBoxHeight());
+				i->mousePressedManager(xSub, ySub, button);
+			}
+
+		}
+
+		void mouseReleasedManager(const int& px, const int& py, const int& button){
+			int xType = px/baseFont.getTextBoxWidth();
+			int yType = py/baseFont.getTextBoxHeight();
+			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+				mouseReleased(xType, yType, button);
+			}
+			// subWindows
+			for (auto&& i : subWindow_ptrs) {
+
+				int xSub = (px - i->x * baseFont.getTextBoxWidth());
+				int ySub = (py - i->y * baseFont.getTextBoxHeight());
+				i->mouseReleasedManager(xSub, ySub, button);
+			}
+
+		}
 
 		void draw(){
 			update();
