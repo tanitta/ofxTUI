@@ -206,9 +206,9 @@ class ofxTUIBaseWindow{
 		void callMouseMoved(const int& px, const int& py){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
-			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseMoved(xType,yType);
-			}
+			// }
 			// subWindows
 			for (auto&& i : subWindow_ptrs) {
 
@@ -222,9 +222,9 @@ class ofxTUIBaseWindow{
 		void callMouseDragged(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
-			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseDragged(xType, yType, button);
-			}
+			// }
 			// subWindows
 			for (auto&& i : subWindow_ptrs) {
 
@@ -238,9 +238,9 @@ class ofxTUIBaseWindow{
 		void callMousePressed(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
-			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mousePressed(xType, yType, button);
-			}
+			// }
 			// subWindows
 			for (auto&& i : subWindow_ptrs) {
 
@@ -254,9 +254,9 @@ class ofxTUIBaseWindow{
 		void callMouseReleased(const int& px, const int& py, const int& button){
 			int xType = px/baseFont.getTextBoxWidth();
 			int yType = py/baseFont.getTextBoxHeight();
-			if(0<=xType&&xType<width&&0<=yType&&yType<height){
+			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseReleased(xType, yType, button);
-			}
+			// }
 			// subWindows
 			for (auto&& i : subWindow_ptrs) {
 

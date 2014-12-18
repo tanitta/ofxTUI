@@ -4,3 +4,6 @@
 
 #include <ofxTUIBaseViewport.h>
 #include <ofxTUIWindow.h>
+
+#include <ofxTUIWidget.h>
+#include <ofxTUIButton.h>
