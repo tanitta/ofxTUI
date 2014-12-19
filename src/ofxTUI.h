@@ -2,6 +2,7 @@
 #include <ofMain.h>
 #include <ofxTUIBaseWindow.h>
 
+#include <ofxTUIColorScheme.h>
 #include <ofxTUIBaseViewport.h>
 #include <ofxTUIWindow.h>
 

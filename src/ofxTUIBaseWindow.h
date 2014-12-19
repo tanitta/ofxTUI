@@ -2,11 +2,13 @@
 #include <ofMain.h>
 #include <ofxTUIType.h>
 #include <ofxTUIFont.h>
+#include <ofxTUIColorScheme.h>
 class ofxTUIBaseWindow{
 	protected:
 		std::vector<ofxTUIBaseWindow*> subWindow_ptrs;
 		static std::map<std::string, ofxTUIFont> fonts;
 		static ofxTUIFont baseFont;
+		static ofxTUIColorScheme defaultColorScheme;
 		std::vector<std::vector<ofxTUIType>> types;
 
 
@@ -159,6 +161,9 @@ class ofxTUIBaseWindow{
 			}
 		};
 		// void drawLine
+		void loadColorScheme(const std::string& str){
+			defaultColorScheme.loadFile(str);
+		}
 
 		void setColorFont(const ofColor& color){
 			colorFont = color;
@@ -166,6 +171,10 @@ class ofxTUIBaseWindow{
 
 		void setColorFont(const int& r, const int& g, const int& b){
 			colorFont = ofColor(r, g, b);
+		};
+
+		void setColorFont(const std::string& str){
+			colorFont = defaultColorScheme.getColor(str+":fg");
 		};
 
 		void setColorBackground(const ofColor& color){
@@ -176,6 +185,14 @@ class ofxTUIBaseWindow{
 			colorBackground = ofColor(r, g, b);
 		};
 
+		void setColorBackground(const std::string& str){
+			colorBackground = defaultColorScheme.getColor(str+":bg");
+		};
+
+		void setColor(const std::string& str){
+			setColorFont(str);
+			setColorBackground(str);
+		}
 
 		void clear(){};
 

@@ -3,14 +3,15 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	win.addFont("fonts/Inconsolata.otf",10);
-	win.setColorFont(255,255,255);
-	win.setColorBackground(0,0,0);
+	win.loadColorScheme("defaultColorScheme.xml");
+	// win.setColorFont(255,255,255);
 	win.fillAllBackground();
 	win.setPos(0,0);
-	// win.addStr("ofxTUI");
+	win.setColor("Normal");
+	win.addStr("ofxTUI");
 
-	button.addFont("fonts/Inconsolata.otf",10);
-	win.addSubWindow(button);
+	// button.addFont("fonts/Inconsolata.otf",10);
+	// win.addSubWindow(button);
 }
 
 //--------------------------------------------------------------
