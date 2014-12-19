@@ -5,8 +5,8 @@
 class ofxTUIBaseWindow{
 	protected:
 		std::vector<ofxTUIBaseWindow*> subWindow_ptrs;
-		std::map<std::string, ofxTUIFont> fonts;
-		ofxTUIFont baseFont;
+		static std::map<std::string, ofxTUIFont> fonts;
+		static ofxTUIFont baseFont;
 		std::vector<std::vector<ofxTUIType>> types;
 
 
@@ -28,8 +28,8 @@ class ofxTUIBaseWindow{
 
 		ofxTUIBaseWindow(const int& h, const int& w, const int& py = 0, const int& px = 0):
 			subWindow_ptrs(),
-			fonts(),
-			baseFont(),
+			// fonts(),
+			// baseFont(),
 			types(h, std::vector<ofxTUIType>(w)),
 			x(px),
 			y(py),
@@ -66,15 +66,15 @@ class ofxTUIBaseWindow{
 		};
 
 		void addFont(const std::string& fontName, const int& size){
-			fonts[fontName] = ofxTUIFont();
-			fonts[fontName].loadFont(fontName,size);
+			ofxTUIBaseWindow::fonts[fontName] = ofxTUIFont();
+			ofxTUIBaseWindow::fonts[fontName].loadFont(fontName,size);
 			if (!baseFont.isLoaded()) {
 				setBaseFont(fontName, size);
 			}
 		};
 
 		void setBaseFont(const std::string& fontName, const int& size){
-			baseFont.loadFont(fontName, size);
+			ofxTUIBaseWindow::baseFont.loadFont(fontName, size);
 		}
 
 		void setIsFill(const bool& b){
@@ -280,17 +280,17 @@ class ofxTUIBaseWindow{
 			for (auto&& i : types) {
 				int ix = 0;
 				for (auto&& j : i) {
-					int size = fonts[j.fontName].getSize();
-					int w = fonts[j.fontName].getTextBoxWidth();
-					int h = fonts[j.fontName].getTextBoxHeight();
+					int size = ofxTUIBaseWindow::fonts[j.fontName].getSize();
+					int w = ofxTUIBaseWindow::fonts[j.fontName].getTextBoxWidth();
+					int h = ofxTUIBaseWindow::fonts[j.fontName].getTextBoxHeight();
 					int xoffset = ix*int((float)size*2.0/3.0+0.5);
-					int yoffset = (iy)*int(fonts[j.fontName].getLineHeight()+0.5);
+					int yoffset = (iy)*int(ofxTUIBaseWindow::fonts[j.fontName].getLineHeight()+0.5);
 
 					ofSetColor(j.colorBackground);
 					ofRect(xoffset,yoffset,w,h);
 
 					ofSetColor(j.colorFont);
-					fonts[j.fontName].drawString(j.str, xoffset, 1*(float)h+h*(iy)+fonts[j.fontName].getDescenderHeight());
+					ofxTUIBaseWindow::fonts[j.fontName].drawString(j.str, xoffset, 1*(float)h+h*(iy)+ofxTUIBaseWindow::fonts[j.fontName].getDescenderHeight());
 					ix++;
 				}
 				iy++;
@@ -298,7 +298,7 @@ class ofxTUIBaseWindow{
 			// subWindowsの描画
 			for (auto&& i : subWindow_ptrs) {
 				ofPushMatrix();
-				ofTranslate(i->x * baseFont.getTextBoxWidth(),i->y * baseFont.getTextBoxHeight());
+				ofTranslate(i->x * ofxTUIBaseWindow::baseFont.getTextBoxWidth(),i->y * ofxTUIBaseWindow::baseFont.getTextBoxHeight());
 				i->callDraw();
 				ofPopMatrix();
 			}
