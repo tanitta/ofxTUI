@@ -14,8 +14,8 @@
 </Frame>
 
 <Headline>
-	<fg>333333</fg>
-	<bg>FFFFFF</bg>
+		<fg>FFFFFF</fg>
+		<bg>FF1947</bg>
 </Headline>
 
 <Button>
@@ -25,7 +25,7 @@
 	</OnMouse>
 
 	<NoOnMouse>
-		<fg>FFFFFF</fg>
+		<fg>999999</fg>
 		<bg>333333</bg>
 	</NoOnMouse>
 
@@ -42,11 +42,15 @@
 
 <Slider>
 	<Knob>
-		<fg>FF00FF</fg>
-		<bg>FFFFFF</bg>
+		<fg>cccccc</fg>
+		<bg>808080</bg>
 	</Knob>
 	<Scale>
-		<fg>FF00FF</fg>
-		<bg>FFFFFF</bg>
+		<fg>FFFFFF</fg>
+		<bg>333333</bg>
 	</Scale>
+	<Fill>
+		<fg>FFFFFF</fg>
+		<bg>FF1947</bg>
+	</Fill>
 </Slider>

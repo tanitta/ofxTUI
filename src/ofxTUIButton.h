@@ -4,38 +4,61 @@ class ofxTUIButton : public ofxTUIWidget{
 	bool bOnMouse;
 	int mouseX;
 	int mouseY;
+	bool val;
 	public:
-		ofxTUIButton(const int& h, const int& w, const int& py = 0, const int& px = 0):ofxTUIWidget(h,w,py,px),bSwitch(false),bOnMouse(false),mouseX(0),mouseY(0){};
-		virtual ~ofxTUIButton(){};
+	ofxTUIButton(const int& h, const int& w, const float& py = 0, const float& px = 0):ofxTUIWidget(h,w,py,px),bSwitch(false),bOnMouse(false),mouseX(0),mouseY(0),val(false){};
+	virtual ~ofxTUIButton(){};
 
-		virtual void mouseMoved(const int& px, const int& py){
-			if(px>=0&&px<=width&&py==0){
-				bOnMouse = true;
-			}else{
-				bOnMouse = false;
+	virtual void mouseMoved(const float& px, const float& py){
+		if(px>=0&&px<width&&py>=0&&py<height){
+			bOnMouse = true;
+		}else{
+			bOnMouse = false;
+			bSwitch = false;
+		}
+	}
+
+	virtual void mousePressed(const float& px, const float& py, const int& button){
+		if(px>=0&&px<width&&py>=0&&py<height){
+			bSwitch = true;
+		}
+	};
+	virtual void mouseDragged(const float& px, const float& py, const int& button){
+		if(px>=0&&px<width&&py>=0&&py<height){
+		}else{
+			bSwitch = false;
+			bOnMouse = false;
+		}
+	};
+
+	virtual void mouseReleased(const float& px, const float& py, const int& button){
+		if(bSwitch){
+			if(px>=0&&px<width&&py>=0&&py<height){
+				val = true;
 			}
 		}
+		bSwitch = false;
+	};
 
-		virtual void mouseReleased(const int& px, const int& py, const int& button){
-			if(px>=0&&px<=width&&py==0){
-				bSwitch = true;
-			}else{
-				bSwitch = false;
-			}
-		};
+	virtual void update(){
+	};
 
-		virtual void update(){
-			std::cout<<bOnMouse<<std::endl;
-		};
+	virtual void draw(){
+		if(bOnMouse){
+			setColor("Button:OnMouse");
+		}else{
+			setColor("Button:NoOnMouse");
+		}
 
-		virtual void draw(){
-			if(bOnMouse){
-				setColorFont(64,64,64);
-				setColorBackground(128,128,128);
-			}else{
-				setColorFont(255,255,255);
-				setColorBackground(64,64,64);
-			}
-			addStr("ofxTUIButton");
-		};
+		if(bSwitch){
+			setColor("Button:Clicked");
+		}
+		fillAllBackground();
+		setAllColor();
+		val = false;
+	};
+
+	bool operator()(){
+		return val;
+	};
 };

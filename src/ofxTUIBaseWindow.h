@@ -23,12 +23,12 @@ class ofxTUIBaseWindow{
 		bool bFill;
 
 	public:
-		int x;
-		int y;
+		float x;
+		float y;
 		int height;
 		int width;
 
-		ofxTUIBaseWindow(const int& h, const int& w, const int& py = 0, const int& px = 0):
+		ofxTUIBaseWindow(const int& h, const int& w, const float& py = 0, const float& px = 0):
 			subWindow_ptrs(),
 			// fonts(),
 			// baseFont(),
@@ -61,7 +61,7 @@ class ofxTUIBaseWindow{
 		void addSubWindow(ofxTUIBaseWindow& window){
 			subWindow_ptrs.push_back(&window);
 		};
-		void addSubWindow(ofxTUIBaseWindow& window,const int& y,const int& x){
+		void addSubWindow(ofxTUIBaseWindow& window,const float& y,const float& x){
 			window.x = x;
 			window.y = y;
 			subWindow_ptrs.push_back(&window);
@@ -194,6 +194,24 @@ class ofxTUIBaseWindow{
 			setColorBackground(str);
 		}
 
+		void setAllColor(const std::string& str){
+			setColor(str);
+			for (auto&& i : types) {
+				for (auto&& j : i) {
+					j.colorFont = colorFont;
+					j.colorBackground = colorBackground;
+				}
+			}
+		}
+		void setAllColor(){
+			for (auto&& i : types) {
+				for (auto&& j : i) {
+					j.colorFont = colorFont;
+					j.colorBackground = colorBackground;
+				}
+			}
+		}
+
 		void clear(){};
 
 		virtual void update(){};
@@ -201,10 +219,10 @@ class ofxTUIBaseWindow{
 
 		virtual void keyPressed(const int& key){};
 		virtual void keyReleased(const int& key){};
-		virtual void mouseMoved(const int& px, const int& py){};
-		virtual void mouseDragged(const int& px, const int& py, const int& button){};
-		virtual void mousePressed(const int& px, const int& py, const int& button){};
-		virtual void mouseReleased(const int& px, const int& py, const int& button){};
+		virtual void mouseMoved(const float& px, const float& py){};
+		virtual void mouseDragged(const float& px, const float& py, const int& button){};
+		virtual void mousePressed(const float& px, const float& py, const int& button){};
+		virtual void mouseReleased(const float& px, const float& py, const int& button){};
 
 		void callKeyPressed(const int& key){
 			keyPressed(key);
@@ -221,8 +239,8 @@ class ofxTUIBaseWindow{
 		};
 
 		void callMouseMoved(const int& px, const int& py){
-			int xType = px/baseFont.getTextBoxWidth();
-			int yType = py/baseFont.getTextBoxHeight();
+			float xType = (float)px/(float)baseFont.getTextBoxWidth();
+			float yType = (float)py/(float)baseFont.getTextBoxHeight();
 			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseMoved(xType,yType);
 			// }
@@ -237,8 +255,8 @@ class ofxTUIBaseWindow{
 		}
 
 		void callMouseDragged(const int& px, const int& py, const int& button){
-			int xType = px/baseFont.getTextBoxWidth();
-			int yType = py/baseFont.getTextBoxHeight();
+			float xType = (float)px/(float)baseFont.getTextBoxWidth();
+			float yType = (float)py/(float)baseFont.getTextBoxHeight();
 			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseDragged(xType, yType, button);
 			// }
@@ -253,8 +271,8 @@ class ofxTUIBaseWindow{
 		}
 
 		void callMousePressed(const int& px, const int& py, const int& button){
-			int xType = px/baseFont.getTextBoxWidth();
-			int yType = py/baseFont.getTextBoxHeight();
+			float xType = (float)px/(float)baseFont.getTextBoxWidth();
+			float yType = (float)py/(float)baseFont.getTextBoxHeight();
 			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mousePressed(xType, yType, button);
 			// }
@@ -269,8 +287,8 @@ class ofxTUIBaseWindow{
 		}
 
 		void callMouseReleased(const int& px, const int& py, const int& button){
-			int xType = px/baseFont.getTextBoxWidth();
-			int yType = py/baseFont.getTextBoxHeight();
+			float xType = (float)px/(float)baseFont.getTextBoxWidth();
+			float yType = (float)py/(float)baseFont.getTextBoxHeight();
 			// if(0<=xType&&xType<width&&0<=yType&&yType<height){
 				mouseReleased(xType, yType, button);
 			// }
@@ -315,7 +333,7 @@ class ofxTUIBaseWindow{
 			// subWindowsの描画
 			for (auto&& i : subWindow_ptrs) {
 				ofPushMatrix();
-				ofTranslate(i->x * ofxTUIBaseWindow::baseFont.getTextBoxWidth(),i->y * ofxTUIBaseWindow::baseFont.getTextBoxHeight());
+				ofTranslate(i->x * (float)ofxTUIBaseWindow::baseFont.getTextBoxWidth(),i->y * (float)ofxTUIBaseWindow::baseFont.getTextBoxHeight());
 				i->callDraw();
 				ofPopMatrix();
 			}

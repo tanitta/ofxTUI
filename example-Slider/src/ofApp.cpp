@@ -4,10 +4,26 @@
 void ofApp::setup(){
 	win.addFont("fonts/Inconsolata.otf",10);
 	win.loadColorScheme("defaultColorScheme.xml");
-	win.fillAllBackground();
 
-	win.setPos(0,0);
-	win.setAllColor("None");
+	// hSlider1.EnableFillOver();
+	hSlider1.EnableFillUnder();
+	win.addSubWindow(hSlider1,2,1);
+
+	hSlider2.EnableFillUnder();
+	win.addSubWindow(hSlider2,4,1);
+
+	hSlider3.EnableFillUnder();
+	win.addSubWindow(hSlider3,6,1);
+}
+
+//--------------------------------------------------------------
+void ofApp::update(){
+
+}
+
+//--------------------------------------------------------------
+void ofApp::draw(){
+	win.fillAllBackground();
 
 	win.setPos(0,0);
 	win.setColor("Frame");
@@ -22,26 +38,20 @@ void ofApp::setup(){
 	win.setColor("Normal");
 	win.addStr("ofxTUI-example");
 
-	button1.setPos(0,0);
-	button1.addStr("ofxTUI   +");
-	button1.setPos(1,0);
-	button1.addStr("Button1");
-	win.addSubWindow(button1,2,1);
+	win.setColor("None");
+	win.setPos(1,1);
+	win.addStr("HSlider1 :");
+	win.setPos(3,1);
+	win.addStr("HSlider2 :");
+	win.setPos(5,1);
+	win.addStr("HSlider3 :");
+	win.setPos(1,12);
+	win.addStr(std::to_string(hSlider1()*100));
+	win.setPos(3,12);
+	win.addStr(std::to_string(hSlider2()*100));
+	win.setPos(5,12);
+	win.addStr(std::to_string(hSlider3()*100));
 
-	button2.setPos(0,0);
-	button2.addStr("ofxTUI   +");
-	button2.setPos(1,0);
-	button2.addStr("Button2");
-	win.addSubWindow(button2,5,1);
-}
-
-//--------------------------------------------------------------
-void ofApp::update(){
-
-}
-
-//--------------------------------------------------------------
-void ofApp::draw(){
 	win.callDraw();
 }
 
