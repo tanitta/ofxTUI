@@ -10,4 +10,5 @@
 #include <ofxTUIButton.h>
 #include <ofxTUIToggle.h>
 #include <ofxTUIHSlider.h>
+#include <ofxTUIVSlider.h>
 

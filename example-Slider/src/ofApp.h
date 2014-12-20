@@ -8,15 +8,13 @@ class ofApp : public ofBaseApp{
 		ofxTUIHSlider hSlider2;
 		ofxTUIHSlider hSlider3;
 
-		ofxTUIButton button1;
-		ofxTUIButton button2;
+		ofxTUIVSlider vSlider1;
 	public:
 		ofApp():win(20,40),
 		hSlider1(1,16),
 		hSlider2(1,16),
 		hSlider3(1,16),
-		button1(2,10),
-		button2(2,10)
+		vSlider1(8,2)
 	{}
 		void setup();
 		void update();

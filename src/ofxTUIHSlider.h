@@ -35,6 +35,8 @@ class ofxTUIHSlider : public ofxTUIWidget{
 		virtual void mouseDragged(const float& px, const float& py, const int& button){
 			if(px>=0 && px<width-1 && bPressed){
 				knob.x = px;
+			}else if(px>=width-1 && bPressed){
+				knob.x = width-1;
 			}
 		};
 

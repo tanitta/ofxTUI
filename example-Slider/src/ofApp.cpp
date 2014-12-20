@@ -14,6 +14,9 @@ void ofApp::setup(){
 
 	hSlider3.EnableFillUnder();
 	win.addSubWindow(hSlider3,6,1);
+
+	vSlider1.EnableFillUnder();
+	win.addSubWindow(vSlider1,8,1);
 }
 
 //--------------------------------------------------------------
