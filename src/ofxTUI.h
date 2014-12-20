@@ -8,4 +8,6 @@
 
 #include <ofxTUIWidget.h>
 #include <ofxTUIButton.h>
+#include <ofxTUIToggle.h>
 #include <ofxTUIHSlider.h>
+
