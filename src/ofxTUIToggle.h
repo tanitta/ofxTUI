@@ -58,5 +58,10 @@ class ofxTUIToggle : public ofxTUIWidget{
 		return bSwitch;
 	};
 
+	bool operator()(const bool& b){
+		bSwitch = b;
+		return bSwitch;
+	};
+
 
 };

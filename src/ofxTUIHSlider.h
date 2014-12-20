@@ -16,6 +16,17 @@ class ofxTUIHSlider : public ofxTUIWidget{
 			return knob.x/((float)width-1.0);
 		}
 
+		float operator()(const float& v){
+			if(0<=v&&v<=1){
+				knob.x = v*((float)width-1.0);
+			}else if(v<0){
+				knob.x = 0;
+			}else{
+				knob.x = 1;
+			}
+			return knob.x/((float)width-1.0);
+		}
+
 		virtual void update(){};
 
 		virtual void keyPressed(const int& key){};
@@ -66,4 +77,5 @@ class ofxTUIHSlider : public ofxTUIWidget{
 		void DisableFillUnder(){
 			bFillUnder= false;
 		};
+
 };

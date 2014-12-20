@@ -52,6 +52,8 @@ void ofApp::draw(){
 	win.setPos(5,12);
 	win.addStr(std::to_string(hSlider3()*100));
 
+	hSlider3(0.5);
+
 	win.callDraw();
 }
 
