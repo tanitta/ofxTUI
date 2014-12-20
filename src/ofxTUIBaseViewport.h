@@ -3,7 +3,7 @@
 
 class ofxTUIBaseViewport : public ofxTUIBaseWindow{
 	public:
-		ofxTUIBaseViewport(const int& h, const int& w, const int& py = 0, const int& px = 0):ofxTUIBaseWindow(h,w,py,px){};
+		ofxTUIBaseViewport(const int& h, const int& w, const float& py = 0, const float& px = 0):ofxTUIBaseWindow(h,w,py,px){};
 		virtual ~ofxTUIBaseViewport(){};
 
 		virtual void update(){};
@@ -11,10 +11,10 @@ class ofxTUIBaseViewport : public ofxTUIBaseWindow{
 		virtual void changedWindowSize(){};
 		virtual void keyPressed(const int& key){};
 		virtual void keyReleased(const int& key){};
-		virtual void mouseMoved(const int& px, const int& py){};
-		virtual void mouseDragged(const int& px, const int& py, const int& button){};
-		virtual void mousePressed(const int& px, const int& py, const int& button){};
-		virtual void mouseReleased(const int& px, const int& py, const int& button){};
+		virtual void mouseMoved(const float& px, const float& py){};
+		virtual void mouseDragged(const float& px, const float& py, const int& button){};
+		virtual void mousePressed(const float& px, const float& py, const int& button){};
+		virtual void mouseReleased(const float& px, const float& py, const int& button){};
 
 		void callDraw(){
 			//update
@@ -35,7 +35,7 @@ class ofxTUIBaseViewport : public ofxTUIBaseWindow{
 			// subWindowsの描画
 			for (auto&& i : subWindow_ptrs) {
 				ofPushMatrix();
-				ofTranslate(i->x * baseFont.getTextBoxWidth(),i->y * baseFont.getTextBoxHeight());
+				ofTranslate(i->x * (float)baseFont.getTextBoxWidth(),i->y * (float)baseFont.getTextBoxHeight());
 				i->callDraw();
 				ofPopMatrix();
 			}
