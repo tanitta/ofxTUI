@@ -11,4 +11,5 @@
 #include <ofxTUIToggle.h>
 #include <ofxTUIHSlider.h>
 #include <ofxTUIVSlider.h>
+#include <ofxTUITextbox.h>
 

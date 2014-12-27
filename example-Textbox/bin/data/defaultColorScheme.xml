@@ -1,0 +1,84 @@
+<Normal>
+	<fg>FFFFFF</fg>
+	<bg>333333</bg>
+</Normal>
+
+<None>
+	<fg>999999</fg>
+	<bg>1a1a1a</bg>
+</None>
+
+<Frame>
+	<fg>cccccc</fg>
+	<bg>808080</bg>
+</Frame>
+
+<Headline>
+	<fg>FFFFFF</fg>
+	<bg>FF1947</bg>
+</Headline>
+
+<Button>
+	<OnMouse>
+		<fg>FFFFFF</fg>
+		<bg>FF1947</bg>
+	</OnMouse>
+
+	<NoOnMouse>
+		<fg>999999</fg>
+		<bg>333333</bg>
+	</NoOnMouse>
+
+	<Clicked>
+		<fg>7f7f7f</fg>
+		<bg>7F0C23</bg>
+	</Clicked>
+
+	<NoClicked>
+		<fg>FF00FF</fg>
+		<bg>FFFFFF</bg>
+	</NoClicked>
+</Button>
+
+<Toggle>
+	<On>
+		<fg>FFFFFF</fg>
+		<bg>FF1947</bg>
+		<OnMouse>
+			<fg>cccccc</fg>
+			<bg>cc1439</bg>
+		</OnMouse>
+		<Clicked>
+			<fg>999999</fg>
+			<bg>990f2a</bg>
+		</Clicked>
+	</On>
+
+	<Off>
+		<fg>cccccc</fg>
+		<bg>999999</bg>
+		<OnMouse>
+			<fg>999999</fg>
+			<bg>666666</bg>
+		</OnMouse>
+		<Clicked>
+			<fg>666666</fg>
+			<bg>333333</bg>
+		</Clicked>
+	</Off>
+</Toggle>
+
+<Slider>
+	<Knob>
+		<fg>cccccc</fg>
+		<bg>808080</bg>
+	</Knob>
+	<Scale>
+		<fg>FFFFFF</fg>
+		<bg>333333</bg>
+	</Scale>
+	<Fill>
+		<fg>FFFFFF</fg>
+		<bg>FF1947</bg>
+	</Fill>
+</Slider>
