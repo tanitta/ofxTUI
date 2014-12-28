@@ -48,12 +48,27 @@ class ofxTUIBaseWindow{
 
 		virtual ~ofxTUIBaseWindow(){};
 
-		void setWindowSize(const int& w, const int& h){
+		void setWindowSize(const int& h, const int& w){
 			if(width != w || height != h){
-			width = w;
-			height = h;
-			// changedWindowSize();
+				width = w;
+				height = h;
+				// changedWindowSize();
+				types.resize(height);
+				for (auto&& i : types) {
+					i.resize(width);
+				}
 			}
+		}
+
+		void fitWindowSize(){
+			setWindowSize(ofGetScreenHeight()/baseFont.getTextBoxHeight()+1,ofGetScreenWidth()/baseFont.getTextBoxWidth()+1);
+			cout<<"H:"<<ofGetScreenHeight()/baseFont.getTextBoxHeight()<<endl;
+			cout<<"W:"<<ofGetScreenWidth()/baseFont.getTextBoxWidth()<<endl;
+		}
+		void fitWindowSize(const int& h, const int& w){
+			setWindowSize(h/baseFont.getTextBoxHeight()+1,w/baseFont.getTextBoxWidth()+1);
+			cout<<"H:"<<h/baseFont.getTextBoxHeight()<<endl;
+			cout<<"W:"<<w/baseFont.getTextBoxWidth()<<endl;
 		}
 
 		virtual void changedWindowSize(){};
@@ -99,6 +114,7 @@ class ofxTUIBaseWindow{
 					types[yCaret][xCaret].str = str;
 				}else{
 					for(int i = 0; i<(int)str.length()&&x+i<width; i++){
+						if(xCaret+i>=height)break;
 						types[yCaret][xCaret+i].colorFont = colorFont;
 						types[yCaret][xCaret+i].colorBackground = colorBackground;
 						types[yCaret][xCaret+i].str = str[i];
