@@ -60,6 +60,11 @@ class ofxTUIBaseWindow{
 			}
 		}
 
+		void setWindowPos(const int py, const int px){
+			x = px;
+			y = py;
+		};
+
 		void fitWindowSize(){
 			setWindowSize(ofGetScreenHeight()/baseFont.getTextBoxHeight()+1,ofGetScreenWidth()/baseFont.getTextBoxWidth()+1);
 			cout<<"H:"<<ofGetScreenHeight()/baseFont.getTextBoxHeight()<<endl;
@@ -80,6 +85,10 @@ class ofxTUIBaseWindow{
 			window.x = x;
 			window.y = y;
 			subWindow_ptrs.push_back(&window);
+		};
+
+		void clearSubWindow(){
+			subWindow_ptrs.clear();
 		};
 
 		void addFont(const std::string& fontName, const int& size){
@@ -230,9 +239,9 @@ class ofxTUIBaseWindow{
 
 		void clear(){};
 
+		virtual void setup(){};
 		virtual void update(){};
 		virtual void draw(){};
-
 		virtual void keyPressed(const int& key){};
 		virtual void keyReleased(const int& key){};
 		virtual void mouseMoved(const float& px, const float& py){};
@@ -317,6 +326,20 @@ class ofxTUIBaseWindow{
 			}
 
 		}
+
+		void callSetup(){
+			setup();
+			for (auto&& i : subWindow_ptrs) {
+				i->callSetup();
+			}
+		};
+
+		void callUpdate(){
+			update();
+			for (auto&& i : subWindow_ptrs) {
+				i->callUpdate();
+			}
+		};
 
 		void callDraw(){
 			//update
