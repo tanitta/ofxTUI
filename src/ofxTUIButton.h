@@ -5,6 +5,7 @@ class ofxTUIButton : public ofxTUIWidget{
 	int mouseX;
 	int mouseY;
 	bool val;
+	ofEvent<void> triggerEvent;
 	public:
 	ofxTUIButton(const int& h, const int& w, const float& py = 0, const float& px = 0):ofxTUIWidget(h,w,py,px),bSwitch(false),bOnMouse(false),mouseX(0),mouseY(0),val(false){};
 	virtual ~ofxTUIButton(){};
@@ -35,6 +36,7 @@ class ofxTUIButton : public ofxTUIWidget{
 		if(bSwitch){
 			if(px>=0&&px<width&&py>=0&&py<height){
 				val = true;
+				ofNotifyEvent(triggerEvent);
 			}
 		}
 		bSwitch = false;
@@ -61,4 +63,12 @@ class ofxTUIButton : public ofxTUIWidget{
 	bool operator()(){
 		return val;
 	};
+	template<class ListenerClass, typename ListenerMethod>
+		void addListener(ListenerClass * listener, ListenerMethod method){
+			ofAddListener(triggerEvent,listener,method);
+		}
+	template<class ListenerClass, typename ListenerMethod>
+		void removeListener(ListenerClass * listener, ListenerMethod method){
+			ofRemoveListener(triggerEvent,listener,method);
+		}
 };

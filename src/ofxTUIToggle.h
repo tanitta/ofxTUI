@@ -1,8 +1,10 @@
 #pragma once
+#include <ofParameter.h>
 class ofxTUIToggle : public ofxTUIWidget{
 	bool bOnMouse;
 	bool bClicked;
 	bool bSwitch;
+	ofEvent<void> triggerEvent;
 	public:
 	ofxTUIToggle(const int& h, const int& w, const float& py = 0, const float& px = 0):ofxTUIWidget(h,w,py,px),bSwitch(false),bOnMouse(false),bClicked(false){};
 	virtual ~ofxTUIToggle(){};
@@ -41,11 +43,11 @@ class ofxTUIToggle : public ofxTUIWidget{
 	virtual void draw(){
 
 		if(bSwitch){
-		setColor("Toggle:On");
+			setColor("Toggle:On");
 			if(bOnMouse)setColor("Toggle:On:OnMouse");
 			if(bClicked)setColor("Toggle:On:Clicked");
 		}else{
-		setColor("Toggle:Off");
+			setColor("Toggle:Off");
 			if(bOnMouse)setColor("Toggle:Off:OnMouse");
 			if(bClicked)setColor("Toggle:Off:Clicked");
 		}
@@ -63,5 +65,12 @@ class ofxTUIToggle : public ofxTUIWidget{
 		return bSwitch;
 	};
 
-
+	template<class ListenerClass, typename ListenerMethod>
+		void addListener(ListenerClass * listener, ListenerMethod method){
+			ofAddListener(triggerEvent,listener,method);
+		}
+	template<class ListenerClass, typename ListenerMethod>
+		void removeListener(ListenerClass * listener, ListenerMethod method){
+			ofRemoveListener(triggerEvent,listener,method);
+		}
 };

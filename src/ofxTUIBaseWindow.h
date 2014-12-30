@@ -175,6 +175,7 @@ class ofxTUIBaseWindow{
 			for (auto&& i : types) {
 				for (auto&& j : i) {
 					j.colorBackground = colorBackground;
+					j.str = "";
 				}
 			}
 		};
