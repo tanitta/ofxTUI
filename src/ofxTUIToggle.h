@@ -4,7 +4,6 @@ class ofxTUIToggle : public ofxTUIWidget{
 	bool bOnMouse;
 	bool bClicked;
 	bool bSwitch;
-	ofEvent<void> triggerEvent;
 	public:
 	ofxTUIToggle(const int& h, const int& w, const float& py = 0, const float& px = 0):ofxTUIWidget(h,w,py,px),bSwitch(false),bOnMouse(false),bClicked(false){};
 	virtual ~ofxTUIToggle(){};
@@ -65,12 +64,4 @@ class ofxTUIToggle : public ofxTUIWidget{
 		return bSwitch;
 	};
 
-	template<class ListenerClass, typename ListenerMethod>
-		void addListener(ListenerClass * listener, ListenerMethod method){
-			ofAddListener(triggerEvent,listener,method);
-		}
-	template<class ListenerClass, typename ListenerMethod>
-		void removeListener(ListenerClass * listener, ListenerMethod method){
-			ofRemoveListener(triggerEvent,listener,method);
-		}
 };

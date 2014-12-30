@@ -90,6 +90,11 @@ class ofxTUITextbox : public ofxTUIWidget{
 	};
 
 	std::string operator()(const std::string& s){
+		for (auto&& i : types) {
+			for (auto&& j : i) {
+				j.str = "";
+			}
+		}
 		setPos(0,0);
 		addStr(s);
 		return s;

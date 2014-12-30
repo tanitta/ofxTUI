@@ -67,13 +67,9 @@ class ofxTUIBaseWindow{
 
 		void fitWindowSize(){
 			setWindowSize(ofGetScreenHeight()/baseFont.getTextBoxHeight()+1,ofGetScreenWidth()/baseFont.getTextBoxWidth()+1);
-			cout<<"H:"<<ofGetScreenHeight()/baseFont.getTextBoxHeight()<<endl;
-			cout<<"W:"<<ofGetScreenWidth()/baseFont.getTextBoxWidth()<<endl;
 		}
 		void fitWindowSize(const int& h, const int& w){
 			setWindowSize(h/baseFont.getTextBoxHeight()+1,w/baseFont.getTextBoxWidth()+1);
-			cout<<"H:"<<h/baseFont.getTextBoxHeight()<<endl;
-			cout<<"W:"<<w/baseFont.getTextBoxWidth()<<endl;
 		}
 
 		virtual void changedWindowSize(){};
